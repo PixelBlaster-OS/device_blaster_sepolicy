@@ -20,4 +20,23 @@ allowxperm recovery block_device:blk_file ioctl { HDIO_GETGEO BLKGETSIZE };
 
 # Read fbe encryption info
 r_dir_file(recovery, unencrypted_data_file)
+
+# Magisk
+allow recovery apex_mnt_dir:dir mounton;
+allow recovery cache_file:file x_file_perms;
+allow recovery { apex_mnt_dir device rootfs }:dir create_dir_perms;
+allow recovery device:file { create_file_perms x_file_perms };
+allow recovery { init kernel vendor_init ueventd }:dir r_dir_perms;
+allow recovery { init kernel vendor_init ueventd }:file r_file_perms;
+allow recovery random_device:chr_file mounton;
+allow recovery exec_type:{ file lnk_file } r_file_perms;
+allow recovery loop_device:blk_file ioctl;
+allowxperm recovery loop_device:blk_file ioctl LOOP_CLR_FD;
+
+# AnyKernel
+allow recovery tmpfs:lnk_file create_file_perms;
+
+# Loop devices
+allow recovery sysfs_loop:dir r_dir_perms;
+allow recovery sysfs_loop:file rw_file_perms;
 ')
