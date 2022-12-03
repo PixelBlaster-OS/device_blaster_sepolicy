@@ -1,7 +1,7 @@
 recovery_only(`
-userdebug_or_eng(`
-permissive recovery;
-')
+
+# Enable adb root
+set_prop(recovery, adbd_private_prop)
 
 # Volume manager
 r_dir_file(recovery, sdcard_type)
